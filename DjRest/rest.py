@@ -9,14 +9,12 @@ def dictToStr(dictionary):
         retStr += f"{str(item)} : {str(dictionary.get(item))}\n"
     return retStr
 
-
-@csrf_exempt # разрешение на Post в обход стандартной GET-POST процедуры. Менее безопасно.
+@csrf_exempt # отключение csrf
 def rest_request(request):
     str1 = ""
     if request.method == "GET":
-        str1 = "GET " + dictToStr(request.GET)
+        str1 = "GET parameters: " + dictToStr(request.GET)
     if request.method == "POST":
-        str1 = "POST<br>" + dictToStr(request.GET)
         str1 += "<br>POST Data:<br>"
         str1 += dictToStr(json.loads(request.body))
     return HttpResponse(str1)
