@@ -4,17 +4,17 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 def dictToStr(dictionary):
-    retStr = ""
+    resultStr = ""
     for item in dictionary:
-        retStr += f"{str(item)} : {str(dictionary.get(item))}\n"
-    return retStr
+        resultStr += f"{str(item)} : {str(dictionary.get(item))}\n"
+    return resultStr
 
 @csrf_exempt # отключение csrf
 def rest_request(request):
-    str1 = ""
+    inputData = ""
     if request.method == "GET":
-        str1 = "GET parameters: " + dictToStr(request.GET)
+        inputData = "GET parameters: " + dictToStr(request.GET)
     if request.method == "POST":
-        str1 += "<br>POST Data:<br>"
-        str1 += dictToStr(json.loads(request.body))
-    return HttpResponse(str1)
+        inputData += "<br>POST Data:<br>"
+        inputData += dictToStr(json.loads(request.body))
+    return HttpResponse(inputData)
